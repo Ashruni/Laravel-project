@@ -8,6 +8,7 @@ use App\Models\User;
 
 class AuthenticationController extends Controller
 {
+
     public function show(){
         return view('auth.registration');
     }
@@ -23,6 +24,20 @@ class AuthenticationController extends Controller
         $user=User::create($credentials);
         auth()->login($user);
         $userId=auth()->user()->id;
-        DD($userId);
+        if($credentials){
+            return view('welcome');
+        }
+        else{
+            return "error";
+        }
+        // DD($userId);
     }
+    public function destroy(){
+        auth()->logout();
+        
+
+        // return redirect('/register');
+    }
+
 }
+
