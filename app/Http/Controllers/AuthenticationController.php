@@ -34,9 +34,10 @@ class AuthenticationController extends Controller
     }
     public function destroy(){
         auth()->logout();
-        
+        // DD('LOGGED OUT');
 
-        // return redirect('/register');
+
+        return redirect('/');
     }
 
 }
