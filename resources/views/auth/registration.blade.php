@@ -72,7 +72,9 @@
 
     <p class="mt-10 text-center text-sm text-gray-500">
      already have an account?
-      <a href="#" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Sign in </a>
+      <a href="/login" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Sign in </a>
+      <br>
+      <a href="/" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Back to home </a>
     </p>
   </div>
 </div>

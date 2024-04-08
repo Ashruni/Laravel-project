@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('operations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->integer('deposits');
-            $table->integer('withdrawals');
-            $table->integer('transfers');
-            $table->unsignedBigInteger('user_id');
+            $table->integer('deposits')->nullable();
+            $table->integer('withdrawals')->nullable();
+            $table->integer('transfers')->nullable();
+            $table->string('email')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

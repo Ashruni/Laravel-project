@@ -11,6 +11,8 @@ class Operation extends Model
         'transfers',
         'deposits',
         'withdrawals',
+        'user_id',
+        'email',
     ];
     use HasFactory;
 }

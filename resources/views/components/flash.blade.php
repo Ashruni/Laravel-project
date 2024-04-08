@@ -1,9 +1,9 @@
 @if(session()->has('success'))
-        <div
+        <div style="margin-top:-155px;"
          x-data="{show: true}"
          x-init="setTimeout(()=>show=false,3000)"
          x-show="show"
-         class="fixed left-0 bg-pink-500 text-white py-1 px-4 rounded-xl"
+         class="fixed left-0 bg-green-500 text-white py-1 px-4 rounded-xl"
          ><p>{{session()->get('success')}}</p>
         </div>
 @endif
