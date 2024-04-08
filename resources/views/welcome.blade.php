@@ -6,7 +6,7 @@
     <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <script>src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.3.0/alpine-ie11.js</script">
+    <script>src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.3.0/alpine-ie11.js"</script>
 
 
 </head>
@@ -14,6 +14,7 @@
 
 
 <div class="min-h-full">
+
 @include('components.nav')
 @auth
   <header class="bg-white shadow">

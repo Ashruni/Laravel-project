@@ -25,7 +25,7 @@ class AuthenticationController extends Controller
         auth()->login($user);
         $userId=auth()->user()->id;
         if($credentials){
-            return view('welcome');
+            return redirect('/welcome');
         }
         else{
             return "error";
@@ -37,7 +37,7 @@ class AuthenticationController extends Controller
         // DD('LOGGED OUT');
 
 
-        return redirect('/');
+        return redirect('/welcome');
     }
 
 }

@@ -68,16 +68,17 @@
   }
   ```
 -->
-@if (session('success'))
+@if(session('success'))
     <div id="success-message" class="alert alert-success" style="background-color:#C7CD8C;">
         {{ session('success') }}
     </div>
 @endif
-@if (session('error'))
+@if(session('error'))
     <div id="error-message" class="alert alert-danger" style="background-color:#ff9999" >
         {{ session('error') }}
     </div>
 @endif
+
 
 <div style="margin-left:450px; margin-top:100px;">
   <label for="price" class="block text-xl font-medium leading-6 text-gray-900">Transfer Money</label><br>

@@ -17,16 +17,20 @@ class DashboardController extends Controller
 {
     public function home(){
         $userId = auth()->user()->id;
+        $email = auth()->user()->email;
         $depositAmount=DB::table('operations')->where('user_id',$userId)->sum('deposits');
         $transferAmount = DB::table('operations')->where('user_id',$userId)->sum('transfers');
         $withdrawalAmount = DB::table('operations')->where('user_id',$userId)->sum('withdrawals');
-        $balance = $depositAmount - ($transferAmount + $withdrawalAmount);
+        $surplusAmount=DB::table('operations')->where('email',$email)->sum('transfers');
+        $balance = ($depositAmount+$surplusAmount) - ($transferAmount + $withdrawalAmount);
 
         return view('dashboard.home')->with('balance',$balance);
     }
+
     public function display(){
         return view('dashboard.deposits');
     }
+
     public function store(){
         $depositAmount= request()->validate([
 
@@ -89,7 +93,7 @@ class DashboardController extends Controller
         }
 
     }
-    public function present(){
+    public function shows(){
       return view('dashboard.transfer');
     }
     public function save(){
@@ -108,27 +112,45 @@ class DashboardController extends Controller
         $balance = ($depositAmount+$userTransfer)-($transferAmount + $withdrawalAmount);
 
         // DD($balance);
-        if($validated['transfers']<$balance){
+
+        if($validated['transfers']<=$balance){
             if($validated['email']!= $email){
                 $user_id =auth()->user()->id;
+                $balance = ($depositAmount+$userTransfer)-($transferAmount + $withdrawalAmount);
                 $validated = Operation::create([
                     'email'=>$validated['email'],
                     'transfers'=>$validated['transfers'],
                     'user_id'=>$user_id
+
                 ]);
                 return redirect('/transfer')->with('success','transfered');
-
             }
-
             else{
-                return redirect('/transfer')->with('error','enter valid email');
+                return redirect('/transfer')->with('error','enter email id of the other user');
+
             }
+
+
 
         }
-
-
-
-
+        else{
+            return redirect('/transfer')->with('error','insufficient bank balance');
+        }
     }
+    public function displays(){
+        $userId = auth()->user()->id;
+
+        $userEmail = auth()->user()->email;
+        $depositAmount=DB::table('operations')->where('user_id',$userId)->sum('deposits');
+        $userTransfer = DB::table('operations')->where('email',$userEmail)->sum('transfers');
+        $transferAmount = DB::table('operations')->where('user_id',$userId)->sum('transfers');
+        $withdrawalAmount = DB::table('operations')->where('user_id',$userId)->sum('withdrawals');
+        $balances = ($depositAmount+$userTransfer)-($transferAmount + $withdrawalAmount);
+        $statements = DB::table('operations')->where('user_id',$userId)->get();
+        // DD($statements);
+        return view('dashboard.statements')->with('statements',$statements)->with('balances',$balances);
+    }
+
+
 }
 
