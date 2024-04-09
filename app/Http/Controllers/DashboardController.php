@@ -41,17 +41,15 @@ class DashboardController extends Controller
             'deposits.max' => 'The deposits amount must not exceed 30,000,000.']
 
     );
-        // DD($depositAmount);
-        $userId = Auth::id();
-        // DD($userId);
 
+        $userId = Auth::id();
         if($depositAmount){
             $operations= Operation::create([
                 'deposits' => $depositAmount['deposits'],
                 'user_id'=>$userId,
             ]);
             return redirect('/deposits')->with('success','Deposited successfully');
-            // session()->flash('success','Your account has been created');
+
 
         }
 
@@ -75,16 +73,16 @@ class DashboardController extends Controller
         $balance = $depositAmount - ($transferAmount + $withdrawalAmount);
         // DD($balance);
         $amount = $withdrawAmount['withdrawals'];
-        // DD();
+
         if($amount<=$balance){
             Operation::create([
                 'withdrawals' =>$withdrawAmount['withdrawals'],
                 'user_id'=>$userId,
             ]);
             $balance = $balance-$withdrawAmount['withdrawals'];
-            // DD($balance);
+
             return redirect('/withdraw')->with('success','withdrawn successfully');
-            // return view('dashboard.withdrawal');
+
 
         }
         else{
@@ -111,8 +109,6 @@ class DashboardController extends Controller
         $withdrawalAmount = DB::table('operations')->where('user_id',$userId)->sum('withdrawals');
         $balance = ($depositAmount+$userTransfer)-($transferAmount + $withdrawalAmount);
 
-        // DD($balance);
-
         if($validated['transfers']<=$balance){
             if($validated['email']!= $email){
                 $user_id =auth()->user()->id;
@@ -130,8 +126,6 @@ class DashboardController extends Controller
 
             }
 
-
-
         }
         else{
             return redirect('/transfer')->with('error','insufficient bank balance');
@@ -147,7 +141,7 @@ class DashboardController extends Controller
         $withdrawalAmount = DB::table('operations')->where('user_id',$userId)->sum('withdrawals');
         $balances = ($depositAmount+$userTransfer)-($transferAmount + $withdrawalAmount);
         $statements = DB::table('operations')->where('user_id',$userId)->get();
-        // DD($statements);
+
         return view('dashboard.statements')->with('statements',$statements)->with('balances',$balances);
     }
 

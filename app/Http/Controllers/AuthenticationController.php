@@ -19,8 +19,7 @@ class AuthenticationController extends Controller
             'email'=>['required','min:5','email','max:255','unique:users,email'],
         ]);
         $credentials['password'] = bcrypt($credentials['password']);
-        // DD($credentials);
-
+        
         $user=User::create($credentials);
         auth()->login($user);
         $userId=auth()->user()->id;
@@ -29,7 +28,7 @@ class AuthenticationController extends Controller
         }
         else{
             return redirect('/reg')->with('error','Something went wrong');
-            
+
         }
         // DD($userId);
     }

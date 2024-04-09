@@ -19,7 +19,7 @@ class SessionController extends Controller
             'password' => 'required|min:8|max:50',
         ]);
 
-        // DD($credentials);
+        
         if (! auth()->attempt($credentials))
         {
             throw ValidationException::withMessages([
