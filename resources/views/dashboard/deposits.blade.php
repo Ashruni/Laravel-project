@@ -61,9 +61,9 @@
         {{ session('success') }}
     </div>
 @endif
-@if (session('error'))
-    <div id="success-message" class="alert alert-success" style="background-color:#C7CD8C;">
-        {{ session('success') }}
+@if(session('error'))
+    <div id="error-message" class="alert alert-danger" style="background-color:#ff9999" >
+        {{ session('error') }}
     </div>
 @endif
 @auth

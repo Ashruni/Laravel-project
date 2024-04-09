@@ -9,34 +9,18 @@
 </head>
 <body class="h-full">
 
-<!--
-  This example requires some changes to your config:
-
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
--->
-<!--
-  This example requires updating your template:
-
-  ```
-
-  ```
--->
 <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
   <div class="sm:mx-auto sm:w-full sm:max-w-sm">
     <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
     <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">ADFC BANK</h2>
   </div>
-
+  @if(session('error'))
+    <div id="error-message" class="alert alert-danger" style="background-color:#ff9999" >
+        {{ session('error') }}
+    </div>
+@endif
   <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+
     <form class="space-y-6" action="/register" method="POST">
     @csrf
     <div>
@@ -56,7 +40,7 @@
         <div class="flex items-center justify-between">
           <label for="password" class="block text-sm font-medium leading-6 text-gray-900" placeholder="enter password" >Password</label>
           <div class="text-sm">
-            <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
+            <!-- <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a> -->
           </div>
         </div>
         <div class="mt-2">
@@ -74,7 +58,7 @@
      already have an account?
       <a href="/login" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Sign in </a>
       <br>
-      <a href="/" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Back to home </a>
+      <a href="/welcome" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Back to home </a>
     </p>
   </div>
 </div>

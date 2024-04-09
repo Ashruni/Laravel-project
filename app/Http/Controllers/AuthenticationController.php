@@ -28,7 +28,8 @@ class AuthenticationController extends Controller
             return redirect('/welcome');
         }
         else{
-            return "error";
+            return redirect('/reg')->with('error','Something went wrong');
+            
         }
         // DD($userId);
     }
