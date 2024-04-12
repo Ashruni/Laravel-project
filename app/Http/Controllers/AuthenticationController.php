@@ -19,7 +19,7 @@ class AuthenticationController extends Controller
             'email'=>['required','min:5','email','max:255','unique:users,email'],
         ]);
         $credentials['password'] = bcrypt($credentials['password']);
-        
+
         $user=User::create($credentials);
         auth()->login($user);
         $userId=auth()->user()->id;
@@ -35,8 +35,6 @@ class AuthenticationController extends Controller
     public function destroy(){
         auth()->logout();
         // DD('LOGGED OUT');
-
-
         return redirect('/welcome');
     }
 

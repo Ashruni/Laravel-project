@@ -60,6 +60,7 @@ class DashboardController extends Controller
     }
     public function withdraw(){
         $userId = Auth::id();
+        $userEmail = auth()->user()->email;
 
         $withdrawAmount = request()->validate([
             'withdrawals'=>'required|numeric|min:1|max:3000000'],
@@ -69,8 +70,10 @@ class DashboardController extends Controller
         );
         $depositAmount=DB::table('operations')->where('user_id',$userId)->sum('deposits');
         $transferAmount = DB::table('operations')->where('user_id',$userId)->sum('transfers');
+        $userTransfer = DB::table('operations')->where('email',$userEmail)->sum('transfers');
         $withdrawalAmount = DB::table('operations')->where('user_id',$userId)->sum('withdrawals');
-        $balance = $depositAmount - ($transferAmount + $withdrawalAmount);
+        $balance = ($depositAmount+$userTransfer)-($transferAmount + $withdrawalAmount);
+
         // DD($balance);
         $amount = $withdrawAmount['withdrawals'];
 
@@ -108,7 +111,7 @@ class DashboardController extends Controller
         $transferAmount = DB::table('operations')->where('user_id',$userId)->sum('transfers');
         $withdrawalAmount = DB::table('operations')->where('user_id',$userId)->sum('withdrawals');
         $balance = ($depositAmount+$userTransfer)-($transferAmount + $withdrawalAmount);
-
+// try calling it as model instead of using table.
         if($validated['transfers']<=$balance){
             if($validated['email']!= $email){
                 $user_id =auth()->user()->id;
