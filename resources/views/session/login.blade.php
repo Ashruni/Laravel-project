@@ -69,7 +69,7 @@
      Don't have an account?
       <a href="/reg" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Register </a>
       <br>
-      <a href="/" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Back to home </a> 
+      <a  href="/welcome" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Back to home </a>
     </p>
   </div>
 </div>
